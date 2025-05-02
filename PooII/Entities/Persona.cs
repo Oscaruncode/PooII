@@ -38,8 +38,6 @@ namespace PooII.Entities
             return edad;
         }
 
-
-
         private string CalcularEdadClinica(DateTime fechaNacimiento)
         {
             var hoy = DateTime.Today;

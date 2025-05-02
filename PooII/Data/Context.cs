@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using PooII.Entities;
+using PooII.Helpers;
 
 namespace PooII.Data
 {
@@ -20,9 +22,23 @@ namespace PooII.Data
                 .WithOne(p => p.Usuario)
                 .HasForeignKey<Usuario>(u => u.IdPersona)
                 .OnDelete(DeleteBehavior.Cascade); 
+        }
+        public override int SaveChanges()
+        {
+            foreach (var entry in ChangeTracker.Entries<Persona>())
+            {
+                if (entry.State == EntityState.Added || entry.State == EntityState.Modified)
+                {
+                    var fechaNacimiento = entry.Entity.FechaNacimiento;
+                    if (fechaNacimiento.HasValue)
+                    {
+                        entry.Entity.Edad = EdadHelper.CalcularEdad(fechaNacimiento.Value);
+                        entry.Entity.EdadClinica = EdadHelper.CalcularEdadClinica(fechaNacimiento.Value);
+                    }
+                }
+            }
 
-
-
+            return base.SaveChanges();
         }
     }
 }

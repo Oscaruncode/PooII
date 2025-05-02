@@ -4,11 +4,11 @@
     {
             public int Id { get; set; }
             public string Identificacion { get; set; } = string.Empty;
-            public string Pnombre { get; set; } = string.Empty;
-            public string Snombre { get; set; } = string.Empty;
-            public string Papellido { get; set; } = string.Empty;
-            public string Sapellido { get; set; } = string.Empty;
+            public string PNombre { get; set; } = string.Empty;
+            public string SNombre { get; set; } = string.Empty;
+            public string PApellido { get; set; } = string.Empty;
+            public string SApellido { get; set; } = string.Empty;
             public string Email { get; set; } = string.Empty;
-            public DateTime? Fechanacimiento { get; set; }
+            public DateTime? FechaNacimiento { get; set; }
     }
 }

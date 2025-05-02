@@ -18,12 +18,5 @@ namespace PooII.Interfaces
         bool ActualizarPersona(Persona persona);
         bool EliminarPersona(int id);
         bool CambiarPassword(int personaId, string newPasswrod);
-       // UsuarioDTO GetUserDetails(int personid);
-
-
-        string GenerarLogin(Persona persona);
-        string GenerarPassword();
-        (Usuario usuario, string password) GenerarUsuario(Persona persona);
-        string GenerarApiKey();
     }
 }

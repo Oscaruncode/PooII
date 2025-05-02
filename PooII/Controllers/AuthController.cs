@@ -7,5 +7,11 @@ namespace PooII.Controllers
     [Route("[controller]")]
     public class AuthController : ControllerBase
     {
+
+        //[HttpPost("login")]
+        //public ActionResult Login([FromBody])
+        //{
+
+        //}
     }
 }

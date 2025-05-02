@@ -23,6 +23,8 @@
   <ItemGroup>
     <Folder Include="DTOs\" />
     <Folder Include="DbContext\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Repositories\" />
   </ItemGroup>
 
 </Project>

@@ -64,11 +64,10 @@ builder.Services.AddCors(options =>
     options.AddPolicy("PermitirLocalhost", builder =>
     {
         builder
-            .SetIsOriginAllowed(origin =>
-                origin.StartsWith("http://localhost") || origin.StartsWith("https://localhost"))
+            .WithOrigins("http://localhost:5501", "http://127.0.0.1:5501", "http://127.0.0.1:5500") 
             .AllowAnyMethod()
             .AllowAnyHeader()
-            .AllowCredentials();
+            .AllowCredentials(); 
     });
 });
 

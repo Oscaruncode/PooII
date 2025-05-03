@@ -7,8 +7,6 @@ namespace PooII.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
-
     public class UbicacionesController : ControllerBase
     {
         private readonly IGeocodingService _geocodingServices;
@@ -63,7 +61,6 @@ namespace PooII.Controllers
             };
 
             return Ok(response);
-
         }
     }
 }

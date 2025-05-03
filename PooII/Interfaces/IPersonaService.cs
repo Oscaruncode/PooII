@@ -13,7 +13,7 @@ namespace PooII.Interfaces
         IEnumerable<PersonaDTO> PersonaPorPNombre(string pNombre);
         IEnumerable<PersonaDTO> PersonaPorApellido(string pApellido);
 
-        bool ActualizarPersona(Persona persona);
+        bool ActualizarPersona(PersonaDTO persona);
         bool EliminarPersona(int id);
     }
 }

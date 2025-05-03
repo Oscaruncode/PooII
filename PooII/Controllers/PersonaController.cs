@@ -23,7 +23,7 @@ namespace PooII.Controllers
         }
 
         [HttpPut("persona")]
-        public ActionResult<bool> EditarPersona([FromBody] Persona persona)
+        public ActionResult<bool> EditarPersona([FromBody] PersonaDTO persona)
         {
             return _personaService.ActualizarPersona(persona);
         }
@@ -46,6 +46,12 @@ namespace PooII.Controllers
         public ActionResult<Persona> GetById(int id)
         {
             return Ok(_personaService.PersonaPorID(id));
+        }
+
+        [HttpGet("persona/identificacion/{identificacion}")]
+        public ActionResult<Persona> GetById(string identificacion)
+        {
+            return Ok(_personaService.PersonaPorIdentificacion(identificacion));
         }
 
         [HttpGet("persona/pnombre/{pnombre}")]

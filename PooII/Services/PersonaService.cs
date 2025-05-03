@@ -21,9 +21,16 @@ namespace PooII.Services
             _usuarioService = usuarioService;
         }
 
-        public bool ActualizarPersona(Persona persona)
+        public bool ActualizarPersona(PersonaDTO personaDTO)
         {
-            return _personaRepository.Actualizar(persona);
+            var personaExistente = _personaRepository.ObtenerPorId(personaDTO.Id);
+            if (personaExistente == null)
+                return false;
+
+            _mapper.Map(personaDTO, personaExistente); 
+
+            _personaRepository.GuardarCambios();
+            return true;
         }
 
         public bool CrearPersona(PersonaDTO personaDTO)
@@ -55,7 +62,9 @@ namespace PooII.Services
 
         public bool EliminarPersona(int id)
         {
-            return _personaRepository.Eliminar(id);
+             _personaRepository.Eliminar(id);
+            _personaRepository.GuardarCambios();
+            return true;
         }
 
         public ICollection<PersonaDTO> ObtenerPersonas()

@@ -36,14 +36,15 @@ namespace PooII.Services
         {
             var password = PasswordHelper.GenerarPassword();
             var apiKey = ApiKeyHelper.GenerarApiKey();
+            var login = ApiKeyHelper.GenerarLogin(persona);
 
             var usuario = new Usuario()
             {
                 IdPersona = persona.Id,
-                Login = ApiKeyHelper.GenerarLogin(persona),
                 Password = password,
                 ApiKey = apiKey
             };
+            usuario.EstablecerLogin(login);
             return usuario;
         }
 

@@ -1,4 +1,5 @@
-﻿using PooII.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using PooII.Data;
 using PooII.Entities;
 using PooII.Interfaces;
 
@@ -23,22 +24,9 @@ namespace PooII.Repositories
             _context.Personas.Update(persona);
         }
 
-        public void Eliminar(int id)
-        {
-            var persona = ObtenerPorId(id);
-            if (persona != null)
-            {
-                _context.Personas.Remove(persona);
-            }
-        }
-
         public Persona? ObtenerPorId(int id)
         {
-            throw new Exception();
-            //return _context.Personas
-            //    .Include(p => p.Usuario)
-            //    .Include(p => p.Ubicacion)
-            //    .FirstOrDefault(p => p.Id == id);
+            return _context.Personas.FirstOrDefault(p => p.Id == id);
         }
 
         public Persona? ObtenerPorIdentificacion(string identificacion)
@@ -53,6 +41,7 @@ namespace PooII.Repositories
 
         public IEnumerable<Persona> ObtenerPorPNombre(string pNombre)
         {
+            //Posible correccion coincidencia que contenga o exacto
             return _context.Personas.Where(p => p.PNombre.Contains(pNombre)).ToList();
         }
 
@@ -80,17 +69,23 @@ namespace PooII.Repositories
         {
             _context.Personas.Add(persona);
             return true;
-            throw new NotImplementedException();
         }
 
         bool IPersonaRepository.Actualizar(Persona persona)
         {
-            throw new NotImplementedException();
+            _context.Personas.Update(persona);
+            return true;
         }
 
         bool IPersonaRepository.Eliminar(int id)
         {
-            throw new NotImplementedException();
+            var persona = ObtenerPorId(id);
+            if (persona != null)
+            {
+                _context.Personas.Remove(persona);
+                return true;
+            }
+            return false;
         }
     }
 }

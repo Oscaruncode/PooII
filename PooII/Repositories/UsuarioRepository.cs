@@ -20,16 +20,19 @@ namespace PooII.Repositories
             return _context.Usuarios.FirstOrDefault(u => u.IdPersona == personaId);
         }
 
+        public Usuario? ObtenerPorLoginPassword(string login, string password)
+        {
+            return _context.Usuarios.FirstOrDefault(u => u.Login == login && u.Password == password);
+        }
+
+        public bool ValidarApiKey(string login, string apiKey)
+        {
+            return _context.Usuarios.Any(u => u.Login == login && u.ApiKey == apiKey);
+        }
+
         //public Usuario? FindByUsername(string login)
         //{
         //    return _context.Usuarios.FirstOrDefault(u => u.Login == login);
-        //}
-
-        //public Usuario? FindByUsernameANDAPIKey(string login, string apiKey)
-        //{
-        //    return _context.Usuarios
-        //        .Include(u => u.Persona)
-        //        .FirstOrDefault(u => u.Login == login && u.ApiKey == apiKey);
         //}
 
         //public Usuario? GetUsuario(string login, Persona persona)

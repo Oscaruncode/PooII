@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PooII.DTOs;
 using PooII.Entities;
 using PooII.Interfaces;
@@ -7,6 +8,7 @@ namespace PooII.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class PersonaController : ControllerBase
     {
         private readonly IPersonaService _personaService;

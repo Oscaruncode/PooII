@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PooII.Interfaces;
 
 namespace PooII.Controllers
 {
+    [ApiController]
+    [Route("[controller]")]
     public class UsuarioController : ControllerBase
     {
         private readonly IUsuarioService _usuarioService;
@@ -11,6 +14,7 @@ namespace PooII.Controllers
             _usuarioService = usuarioService;
         }
 
+        [Authorize]
         [HttpPost("cambiarpassword/{id}")]
         public IActionResult CambiarPassword(int id, [FromBody] string newPassword)
         {

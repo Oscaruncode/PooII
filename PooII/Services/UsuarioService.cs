@@ -63,5 +63,23 @@ namespace PooII.Services
             var usuarioDTO = _mapper.Map<UsuarioDTO>(usuario);
             return usuarioDTO;
         }
+
+        public UsuarioDTO ObtenerPorUsuarioPassword(string login, string password)
+        {
+            var usuario = _usuarioRepository.ObtenerPorLoginPassword(login,password);
+            if (usuario == null)
+            {
+                logger.LogError("USUARIO CONTRASEÑA INCORRECTA!");
+                return null;
+            }
+            var usuarioDTO = _mapper.Map<UsuarioDTO>(usuario);
+            return usuarioDTO;
+        }
+
+        public bool ValidateApiKey(string login, string apiKey)
+        {
+            return _usuarioRepository.ValidarApiKey(login, apiKey);
+        }
+
     }
 }

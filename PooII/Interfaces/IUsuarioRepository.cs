@@ -5,8 +5,10 @@ namespace PooII.Interfaces
     public interface IUsuarioRepository
     {
         Usuario? ObtenerPorId(int personaId);
-        //public Usuario? FindByUsername(string login);
+        Usuario? ObtenerPorLoginPassword(string login, string password);
         void Actualizar(Usuario usuario);
         void GuardarCambios();
+        bool ValidarApiKey(string login, string apiKey);
+
     }
 }

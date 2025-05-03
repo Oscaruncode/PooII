@@ -1,6 +1,10 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using PooII.Data;
 using PooII.Interfaces;
+using PooII.JWT.Config;
 using PooII.Repositories;
 using PooII.Services;
 
@@ -21,6 +25,31 @@ builder.Services.AddScoped<IPersonaRepository, PersonaRepository>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 //builder.Services.AddScoped<IUbicacionRepository, UbicacionRepository>();
 
+var key = Encoding.UTF8.GetBytes(Constants.SUPER_SECRET_KEY);
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.RequireHttpsMetadata = false; // solo en desarrollo
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = false,
+        ValidateAudience = false,
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        ValidateLifetime = true,
+        ClockSkew = TimeSpan.Zero // opcional, elimina margen de expiración
+    };
+});
+builder.Services.AddAuthorization();
+
+builder.Services.AddControllers();
+
+
 
 var app = builder.Build();
 
@@ -31,7 +60,36 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
+
 app.UseHttpsRedirection();
+
+
+app.UseAuthentication();
+app.Use(async (context, next) =>
+{
+    if (context.User.Identity?.IsAuthenticated ?? false)
+    {
+        var login = context.User.Identity.Name;
+        if (!context.Request.Headers.TryGetValue("X-API-KEY", out var apiKeyHeader))
+        {
+            context.Response.StatusCode = 401;
+            await context.Response.WriteAsync("API Key is missing");
+            return;
+        }
+
+        var usuarioService = context.RequestServices.GetRequiredService<IUsuarioService>();
+        if (!usuarioService.ValidateApiKey(login!, apiKeyHeader!))
+        {
+            context.Response.StatusCode = 403;
+            await context.Response.WriteAsync("Invalid API Key");
+            return;
+        }
+    }
+
+    await next();
+});
+app.UseAuthorization();
 
 app.UseAuthorization();
 

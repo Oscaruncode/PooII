@@ -4,6 +4,7 @@ using PooII.Interfaces;
 
 namespace PooII.Controllers
 {
+   // [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class UsuarioController : ControllerBase
@@ -14,7 +15,6 @@ namespace PooII.Controllers
             _usuarioService = usuarioService;
         }
 
-        [Authorize]
         [HttpPost("cambiarpassword/{id}")]
         public IActionResult CambiarPassword(int id, [FromBody] string newPassword)
         {

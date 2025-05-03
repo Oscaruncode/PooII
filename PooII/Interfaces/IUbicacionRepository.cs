@@ -7,6 +7,8 @@ namespace PooII.Interfaces
     {
         ICollection<Ubicacion> consultarUbicaciones();
         Ubicacion getCoordenadasPorPersona(int id_persona);
+        Task<Ubicacion?> ObtenerUltimaPorPersona(int personaId);
+        Task AgregarAsync(Ubicacion ubicacion);
     }
 }
 

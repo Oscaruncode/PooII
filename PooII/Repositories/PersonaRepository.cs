@@ -29,6 +29,12 @@ namespace PooII.Repositories
             return _context.Personas.FirstOrDefault(p => p.Id == id);
         }
 
+        public async Task<Persona?> ObtenerPorIdAsync(int id)
+        {
+            return await _context.Personas.FirstOrDefaultAsync(p => p.Id == id);
+        }
+
+
         public Persona? ObtenerPorIdentificacion(string identificacion)
         {
             return _context.Personas.FirstOrDefault(p => p.Identificacion == identificacion);
@@ -86,6 +92,11 @@ namespace PooII.Repositories
                 return true;
             }
             return false;
+        }
+
+        public async Task<IEnumerable<Persona>> ObtenerTodasAsync()
+        {
+            return await _context.Personas.ToListAsync();
         }
     }
 }

@@ -8,7 +8,7 @@ namespace PooII.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [Authorize]
+   // [Authorize]
     public class PersonaController : ControllerBase
     {
         private readonly IPersonaService _personaService;

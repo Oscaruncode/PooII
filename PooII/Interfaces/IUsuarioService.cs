@@ -13,22 +13,3 @@ namespace PooII.Interfaces
         bool ValidateApiKey(string login, string apiKey);
     }
 }
-
-
-
-
-
-
-
-
-
-
-// UsuarioDTO GetUserDetails(int personid);
-
-//  bool eliminar(UsuarioPK id);
-//List<Usuario> consultarUsuario(Pageable pageable);
-// Usuario getUsuarioById(UsuarioPK id);
-
-//string GenerarLogin(Persona persona);
-//string GenerarPassword();
-//string GenerarApiKey();

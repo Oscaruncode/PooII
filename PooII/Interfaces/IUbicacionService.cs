@@ -2,10 +2,8 @@
 
 namespace PooII.Interfaces
 {
-    public interface IUbicacionService
+    public interface IUbicacionServices
     {
-        ICollection<Ubicacion> consultarUbicaciones();
+        Task<(bool success, string messages, Ubicacion Ubicacion)> AddUbicacionAsync(int personaId, string direccion);
     }
 }
-
-//List<Coordenadas> consultarAllCoordenadas(Pageable pageable);

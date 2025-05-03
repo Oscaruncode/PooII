@@ -11,19 +11,20 @@ using PooII.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddHttpClient();
+
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<Context>(context => context.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<IPersonaService, PersonaService>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
-//builder.Services.AddScoped<IUbicacionService, UbicacionService>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IPersonaRepository, PersonaRepository>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
-//builder.Services.AddScoped<IUbicacionRepository, UbicacionRepository>();
+builder.Services.AddScoped<IUbicacionRepository, UbicacionRepository>();
+builder.Services.AddScoped<IGeocodingService, GeocodingServices>(); 
 
 var key = Encoding.UTF8.GetBytes(Constants.SUPER_SECRET_KEY);
 builder.Services.AddAuthentication(options =>

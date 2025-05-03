@@ -16,5 +16,9 @@ namespace PooII.Interfaces
         bool Actualizar(Persona persona);
         bool Eliminar(int id);
         bool GuardarCambios();
+
+        Task<IEnumerable<Persona>> ObtenerTodasAsync();
+        Task<Persona?> ObtenerPorIdAsync(int id);
+
     }
 }

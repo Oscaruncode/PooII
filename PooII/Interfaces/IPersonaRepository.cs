@@ -12,10 +12,9 @@ namespace PooII.Interfaces
         IEnumerable<Persona> ObtenerTodas();
         IEnumerable<Persona> ObtenerPersonaConUbicacion();
 
-        void Crear(Persona persona);
-        void Actualizar(Persona persona);
-        void Eliminar(int id);
-
+        bool Crear(Persona persona);
+        bool Actualizar(Persona persona);
+        bool Eliminar(int id);
         bool GuardarCambios();
     }
 }

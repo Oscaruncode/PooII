@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using PooII.Data;
+using PooII.Interfaces;
+using PooII.Repositories;
+using PooII.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +13,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<Context>(context => context.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddScoped<IPersonaService, PersonaService>();
+builder.Services.AddScoped<IUsuarioService, UsuarioService>();
+builder.Services.AddScoped<IUbicacionService, UbicacionService>();
+builder.Services.AddScoped<IPersonaRepository, PersonaRepository>();
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<IUbicacionRepository, UbicacionRepository>();
+
 
 var app = builder.Build();
 

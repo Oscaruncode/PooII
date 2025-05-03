@@ -7,16 +7,27 @@ namespace PooII.Interfaces
     {
         bool guardar(Usuario usuario);
         bool actualizar(Usuario usuario);
-        bool eliminar(UsuarioPK id);
-        List<Usuario> consultarUsuario(Pageable pageable);
-        Usuario getUsuarioById(UsuarioPK id);
 
-        // UsuarioDTO GetUserDetails(int personid);
-
-
-        //string GenerarLogin(Persona persona);
-        //string GenerarPassword();
-        //(Usuario usuario, string password) GenerarUsuario(Persona persona);
-        //string GenerarApiKey();
+        bool CambiarPassword(int personaId, string newPasswrod);
+        Usuario GenerarUsuario(Persona persona);
     }
 }
+
+
+
+
+
+
+
+
+
+
+// UsuarioDTO GetUserDetails(int personid);
+
+//  bool eliminar(UsuarioPK id);
+//List<Usuario> consultarUsuario(Pageable pageable);
+// Usuario getUsuarioById(UsuarioPK id);
+
+//string GenerarLogin(Persona persona);
+//string GenerarPassword();
+//string GenerarApiKey();

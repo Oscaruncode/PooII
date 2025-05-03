@@ -168,15 +168,15 @@ ubicaciones.forEach(u => {
 });
 map.fitBounds(bounds);
   
-        document.getElementById('info-panel').innerHTML = `
-          <h3>Ubicaciones Actuales</h3>
-          <ul>
-            ${ubicaciones
-              .filter(u => u.ultimaUbicacion)
-              .map(u => `<li>${u.nombre}: (${u.ultimaUbicacion.latitud}, ${u.ultimaUbicacion.longitud}) - ${u.ultimaUbicacion.direccion} - ${u.ultimaUbicacion.fecha}</li>`)
-              .join('')}
-          </ul>
-        `;
+document.getElementById('info-panel').innerHTML = `
+  <h3>Ubicaciones Actuales</h3>
+  <ul>
+    ${ubicaciones
+      .filter(u => u.latitud != null && u.longitud != null)
+      .map(u => `<li>${u.marca}: (${u.latitud}, ${u.longitud}) - ${new Date(u.fecha).toLocaleString()}</li>`)
+      .join('')}
+  </ul>
+`;
       } catch (error) {
         document.getElementById('info-panel').innerHTML = `<p>Error: ${error.message}</p>`;
       }

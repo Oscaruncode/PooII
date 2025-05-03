@@ -2,7 +2,7 @@
 
 namespace PooII.Services
 {
-    public class UbicacionService : IUbicacionService
+    public class UbicacionService 
     {
     }
 }

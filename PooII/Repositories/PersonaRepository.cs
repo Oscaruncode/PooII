@@ -34,10 +34,11 @@ namespace PooII.Repositories
 
         public Persona? ObtenerPorId(int id)
         {
-            return _context.Personas
-                .Include(p => p.Usuario)
-                .Include(p => p.Ubicacion)
-                .FirstOrDefault(p => p.Id == id);
+            throw new Exception();
+            //return _context.Personas
+            //    .Include(p => p.Usuario)
+            //    .Include(p => p.Ubicacion)
+            //    .FirstOrDefault(p => p.Id == id);
         }
 
         public Persona? ObtenerPorIdentificacion(string identificacion)
@@ -68,6 +69,28 @@ namespace PooII.Repositories
         public bool GuardarCambios()
         {
             return _context.SaveChanges() > 0;
+        }
+
+        public IEnumerable<Persona> ObtenerPersonaConUbicacion()
+        {
+            throw new NotImplementedException();
+        }
+
+        bool IPersonaRepository.Crear(Persona persona)
+        {
+            _context.Personas.Add(persona);
+            return true;
+            throw new NotImplementedException();
+        }
+
+        bool IPersonaRepository.Actualizar(Persona persona)
+        {
+            throw new NotImplementedException();
+        }
+
+        bool IPersonaRepository.Eliminar(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

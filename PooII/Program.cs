@@ -15,10 +15,11 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<Context>(context => context.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<IPersonaService, PersonaService>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
-builder.Services.AddScoped<IUbicacionService, UbicacionService>();
+//builder.Services.AddScoped<IUbicacionService, UbicacionService>();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IPersonaRepository, PersonaRepository>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
-builder.Services.AddScoped<IUbicacionRepository, UbicacionRepository>();
+//builder.Services.AddScoped<IUbicacionRepository, UbicacionRepository>();
 
 
 var app = builder.Build();

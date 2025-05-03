@@ -2,7 +2,7 @@
 
 namespace PooII.Repositories
 {
-    public class UbicacionRepository : IUbicacionRepository
+    public class UbicacionRepository
     {
     }
 }

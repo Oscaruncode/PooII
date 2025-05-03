@@ -1,12 +1,16 @@
 ﻿using AutoMapper;
+using PooII.DTOs;
+using PooII.Entities;
 
 namespace PooII.Automapper
 {
     public class MappingProfile : Profile
     {
-        //CreateMap<, Person>();
-        //CreateMap<Person, >().ReverseMap();
-        //CreateMap<User, UserDTO>();
+        public MappingProfile()
+        {
+            CreateMap<Persona, PersonaDTO>().ReverseMap();
+            CreateMap<Usuario, UsuarioDTO>();
+        }
     }
 }
 

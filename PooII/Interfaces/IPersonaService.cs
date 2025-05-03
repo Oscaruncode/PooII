@@ -5,8 +5,8 @@ namespace PooII.Interfaces
 {
     public interface IPersonaService
     {
-        (Usuario Usuario, string password) CrearPersona(PersonaDTO usuarioRegisterDTO);
-        IEnumerable<PersonaDTO> ObtenerPersonas();
+        bool CrearPersona(PersonaDTO usuarioRegisterDTO);
+        ICollection<PersonaDTO> ObtenerPersonas();
 
         PersonaDTO? PersonaPorID(int id);
         PersonaDTO? PersonaPorIdentificacion(string identificacion);

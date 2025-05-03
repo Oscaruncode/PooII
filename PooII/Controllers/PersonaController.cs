@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using PooII.DTOs;
+using PooII.Entities;
 using PooII.Interfaces;
 
 namespace PooII.Controllers
@@ -8,97 +9,55 @@ namespace PooII.Controllers
     [Route("[controller]")]
     public class PersonaController : ControllerBase
     {
-        //private IPersonaService personaService;
-        //public class PersonaController(IPersonaService personaService)
-        //{
-        //    _personaService = personaService;
-        //}
+        private readonly IPersonaService _personaService;
 
-        [HttpPost]
-        public IActionResult CrearPersona()
+        public PersonaController(IPersonaService personaService)
         {
-            throw new NotImplementedException();
-
-            //var (user, password) = _personService.CrearPersona(persona);
-            //return Ok;
+            _personaService = personaService;
         }
 
-        [HttpGet]
-        public IActionResult ObtenerPersonas()
+        [HttpPost("persona")]
+        public ActionResult<bool> AgregarPersona([FromBody] PersonaDTO persona)
         {
-            throw new NotImplementedException();
-
-            //var persons = _personService.ObtenerPersonas();
-            //return Ok(persons);
+            return _personaService.CrearPersona(persona);
         }
 
-        [HttpGet("{id}"), Authorize]
-        public IActionResult ObtenerPersona(int id)
+        [HttpPut("persona")]
+        public ActionResult<bool> EditarPersona([FromBody] Persona persona)
         {
-            throw new NotImplementedException();
-
-            //var person = _personService.PersonaPorID(id);
-            //return Ok(person);
+            return _personaService.ActualizarPersona(persona);
         }
 
-        [HttpGet("por-identication/{identifacion}")]
-        public IActionResult ObtenerPorIdentificacion(string identifacion)
+        [HttpDelete("persona/{id}")]
+        public ActionResult<bool> EliminarPersona(int id)
         {
-            throw new NotImplementedException();
-
-            // var person = _personService.PersonaPorIdentificacion(identifacion);
-
-            //  return Ok(person);
+            return _personaService.EliminarPersona(id);
         }
 
-        [HttpGet("por-edad/{edad}")]
-        public IActionResult ObtenerPorEdad(int edad)
+        [HttpGet("personas")]
+        public ActionResult<ICollection<PersonaDTO>> ListadoPersona()
         {
-            throw new NotImplementedException();
-
-            //    var persons = _personService.PersonaPorEdad(edad);
-            //    return Ok(persons);
+            return Ok(_personaService.ObtenerPersonas());
         }
 
-        [HttpGet("por-Pnombre/{nombre}")]
-        public IActionResult ObtenerPorNombre(string nombre)
+        // ========== MÉTODOS DE BÚSQUEDA ==========
+
+        [HttpGet("persona/id/{id}")]
+        public ActionResult<Persona> GetById(int id)
         {
-            throw new NotImplementedException();
-            //   var persons = _personService.PersonaPorPNombre(nombre);
-            // return Ok(persona);
+            return Ok(_personaService.PersonaPorID(id));
         }
 
-        [HttpGet("por-Papellido/{apellido}")]
-        public IActionResult obtenerPorApellido(string apellido)
+        [HttpGet("persona/pnombre/{pnombre}")]
+        public ActionResult<List<Persona>> GetByPNombre(string pnombre)
         {
-            throw new NotImplementedException();
-            // var persons = _personService.PersonaPorApellido(apellido);
-            //return persona
+            return Ok(_personaService.PersonaPorPNombre(pnombre));
         }
 
-        [HttpPut("{id}")]
-        public IActionResult ActualizarPersona( )
+        [HttpGet("persona/edad/{edad}")]
+        public ActionResult<List<Persona>> GetByEdad(int edad)
         {
-            throw new NotImplementedException();
-            //var result = _personService.ActualizarPersona(person);
-           // return persona;
+            return Ok(_personaService.PersonaPorEdad(edad));
         }
-
-        [HttpDelete("{id}")]
-        public IActionResult BorrarPersona(int id)
-        {
-            //var result = _personService.EliminarPersona(id);
-            throw new NotImplementedException("");
-        }
-
-        [HttpPost("cambiar-password/{id}")]
-        public IActionResult CambiarPassword(int id, [FromBody] string newPassword)
-        {
-            //  var result = _personService.CambiarPassword(id, newPassword);
-            // return ok
-            throw new NotImplementedException();
-        }
-
-
     }
 }

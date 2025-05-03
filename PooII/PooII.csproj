@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <Folder Include="FRONT\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

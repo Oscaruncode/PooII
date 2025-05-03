@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace PooII.Migrations
 {
     /// <inheritdoc />
-    public partial class First : Migration
+    public partial class FirstMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,10 +17,10 @@ namespace PooII.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Identificacion = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PNombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Identificacion = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    PNombre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     SNombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PApellido = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PApellido = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     SApellido = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FechaNacimiento = table.Column<DateTime>(type: "datetime2", nullable: true),

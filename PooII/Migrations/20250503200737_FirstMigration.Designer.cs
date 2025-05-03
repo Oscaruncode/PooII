@@ -12,8 +12,8 @@ using PooII.Data;
 namespace PooII.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20250503015832_First")]
-    partial class First
+    [Migration("20250503200737_FirstMigration")]
+    partial class FirstMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,15 +49,18 @@ namespace PooII.Migrations
 
                     b.Property<string>("Identificacion")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("PApellido")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("PNombre")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("SApellido")
                         .IsRequired()

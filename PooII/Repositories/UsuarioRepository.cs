@@ -1,23 +1,52 @@
-﻿using PooII.Entities;
+﻿using Microsoft.Extensions.Logging;
+using PooII.Data;
+using PooII.Entities;
 using PooII.Interfaces;
+using PooII.Repositories;
 
 namespace PooII.Repositories
 {
     public class UsuarioRepository : IUsuarioRepository
     {
-        public Usuario findByUsername(string login)
+        private readonly Context _context;
+
+        public UsuarioRepository(Context context)
         {
-            throw new NotImplementedException();
+            _context = context;
         }
 
-        public Usuario findByUsernameANDAPIKey(string login, string APIKey)
+        public Usuario? ObtenerPorId(int personaId)
         {
-            throw new NotImplementedException();
+            return _context.Usuarios.FirstOrDefault(u => u.IdPersona == personaId);
         }
 
-        public Usuario getUsuario(string login, Persona persona)
+        //public Usuario? FindByUsername(string login)
+        //{
+        //    return _context.Usuarios.FirstOrDefault(u => u.Login == login);
+        //}
+
+        //public Usuario? FindByUsernameANDAPIKey(string login, string apiKey)
+        //{
+        //    return _context.Usuarios
+        //        .Include(u => u.Persona)
+        //        .FirstOrDefault(u => u.Login == login && u.ApiKey == apiKey);
+        //}
+
+        //public Usuario? GetUsuario(string login, Persona persona)
+        //{
+        //    return _context.Usuarios
+        //        .Include(u => u.Persona)
+        //        .FirstOrDefault(u => u.Login == login && u.IdPersona == persona.Id);
+        //}
+
+        public void Actualizar(Usuario usuario)
         {
-            throw new NotImplementedException();
+            _context.Usuarios.Update(usuario);
+        }
+
+        public void GuardarCambios()
+        {
+            _context.SaveChanges();
         }
     }
 }

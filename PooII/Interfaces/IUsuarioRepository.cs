@@ -4,8 +4,9 @@ namespace PooII.Interfaces
 {
     public interface IUsuarioRepository
     {
-        Usuario getUsuario(string login, Persona persona);
-        Usuario findByUsername(string login);
-        Usuario findByUsernameANDAPIKey(string login, string APIKey);
+        Usuario? ObtenerPorId(int personaId);
+        //public Usuario? FindByUsername(string login);
+        void Actualizar(Usuario usuario);
+        void GuardarCambios();
     }
 }

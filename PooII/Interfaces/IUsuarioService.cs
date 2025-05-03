@@ -1,13 +1,12 @@
 ﻿using Azure;
+using PooII.DTOs;
 using PooII.Entities;
 
 namespace PooII.Interfaces
 {
     public interface IUsuarioService
     {
-        bool guardar(Usuario usuario);
-        bool actualizar(Usuario usuario);
-
+        UsuarioDTO ObtenerPorId(int id);
         bool CambiarPassword(int personaId, string newPasswrod);
         Usuario GenerarUsuario(Persona persona);
     }

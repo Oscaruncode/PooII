@@ -3,6 +3,7 @@
     public class UsuarioDTO
     {
             public string Login { get; set; } = string.Empty;
-            public string ApiKey { get; set; } = string.Empty;   
+            public string ApiKey { get; set; } = string.Empty;
+            public string Password { get; set; } = string.Empty;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using AutoMapper;
+using PooII.DTOs;
 using PooII.Entities;
 using PooII.Helpers;
 using PooII.Interfaces;
@@ -21,15 +22,18 @@ namespace PooII.Services
             _mapper = mapper;
         }
 
-        public bool actualizar(Usuario usuario)
-        {
-            throw new NotImplementedException();
-
-        }
-
         public bool CambiarPassword(int personaId, string newPasswrod)
         {
-            throw new NotImplementedException();
+            var usuario = _usuarioRepository.ObtenerPorId(personaId);
+            if (usuario == null)
+            {
+                logger.LogError("ERROR CAMBIAR_PASSWORD: EL USUARIO NO EXISTE!");
+                return false;
+            }
+            usuario.Password = newPasswrod;
+            _usuarioRepository.Actualizar(usuario);
+            _usuarioRepository.GuardarCambios();
+            return true;
         }
 
         public Usuario GenerarUsuario(Persona persona)
@@ -48,11 +52,16 @@ namespace PooII.Services
             return usuario;
         }
 
-        public bool guardar(Usuario usuario)
+        public UsuarioDTO ObtenerPorId(int id)
         {
-           
-
-            throw new NotImplementedException();
+            var usuario = _usuarioRepository.ObtenerPorId(id);
+            if (usuario == null)
+            {
+                logger.LogError("ERROR OBTENER_USUARIO: EL USUARIO NO EXISTE!");
+                return null;
+            }
+            var usuarioDTO = _mapper.Map<UsuarioDTO>(usuario);
+            return usuarioDTO;
         }
     }
 }

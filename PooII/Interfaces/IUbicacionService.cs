@@ -1,9 +1,13 @@
-﻿using PooII.Entities;
+﻿using PooII.DTOs;
+using PooII.Entities;
 
 namespace PooII.Interfaces
 {
     public interface IUbicacionServices
     {
         Task<(bool success, string messages, Ubicacion Ubicacion)> AddUbicacionAsync(int personaId, string direccion);
+        ICollection<UbicacionDTO>? UbicacionesActuales();
+
+        ICollection<UbicacionDTO>? HistorialPersona(int personaId);
     }
 }

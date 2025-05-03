@@ -13,9 +13,6 @@ namespace PooII.Entities
         public double Latitud { get; set; }
         public double Longitud { get; set; }
         public DateTime Fecha { get; set; }
-
-        [ForeignKey("IdPersona")]
         public Persona Persona { get; set; }
-
     }
 }

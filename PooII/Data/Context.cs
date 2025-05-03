@@ -21,7 +21,28 @@ namespace PooII.Data
                 .HasOne(u => u.Persona)
                 .WithOne(p => p.Usuario)
                 .HasForeignKey<Usuario>(u => u.IdPersona)
-                .OnDelete(DeleteBehavior.Cascade); 
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Persona>()
+                .Property(p => p.Identificacion)
+                .IsRequired()
+                .HasMaxLength(50);
+
+            modelBuilder.Entity<Persona>()
+                .Property(p => p.PNombre)
+                .IsRequired()
+                .HasMaxLength(50);
+
+            modelBuilder.Entity<Persona>()
+                .Property(p => p.PApellido)
+                .IsRequired()
+                .HasMaxLength(50);
+
+            modelBuilder.Entity<Ubicacion>()
+                .HasOne(u => u.Persona)
+                .WithMany(p => p.Ubicaciones)
+                .HasForeignKey(u => u.IdPersona)
+                .OnDelete(DeleteBehavior.Cascade);
         }
         public override int SaveChanges()
         {

@@ -41,7 +41,6 @@ namespace PooII.TareasProgramadas
                             Latitud = lat,
                             Longitud = lng,
                             Fecha = DateTime.UtcNow,
-
                         };
 
                         await ubicacionRepository.AgregarAsync(nuevaUbicacion);
@@ -54,9 +53,9 @@ namespace PooII.TareasProgramadas
                         }
 
                     }
-
-                    await Task.Delay(TimeSpan.FromMinutes(3), stoppingToken);
                 }
+                await Task.Delay(TimeSpan.FromMinutes(1), stoppingToken);
+
             }
         }
     }

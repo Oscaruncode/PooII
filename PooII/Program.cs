@@ -8,6 +8,7 @@ using PooII.Interfaces;
 using PooII.JWT.Config;
 using PooII.Repositories;
 using PooII.Services;
+using PooII.TareasProgramadas;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -61,6 +62,7 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDbContext<Context>(context => context.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddHostedService<UbicacionMonitorBS>();
 builder.Services.AddScoped<IPersonaService, PersonaService>();
 builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -68,6 +70,7 @@ builder.Services.AddScoped<IPersonaRepository, PersonaRepository>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<IUbicacionRepository, UbicacionRepository>();
 builder.Services.AddScoped<IGeocodingService, GeocodingServices>(); 
+builder.Services.AddScoped<IUbicacionServices, UbicacionServices>();
 
 var key = Encoding.UTF8.GetBytes(Constants.SUPER_SECRET_KEY);
 builder.Services.AddAuthentication(options =>

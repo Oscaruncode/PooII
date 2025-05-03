@@ -42,7 +42,12 @@ namespace PooII.Services
                 }
 
                 var request = new UbicacionRequestDTO { PersonaId = personaId, Direccion = direccion };
-                var ubicacion = _mapper.Map<Ubicacion>(request);
+                var ubicacion = new Ubicacion
+                {
+                    IdPersona = personaId,
+                    Direccion = direccion
+                };
+                
                 ubicacion.Latitud = coordinates.latitude;
                 ubicacion.Longitud = coordinates.longitude;
                 ubicacion.Fecha = DateTime.UtcNow;
@@ -57,5 +62,18 @@ namespace PooII.Services
 
             }
         }
+
+        public ICollection<UbicacionDTO>? HistorialPersona(int personaId)
+        {
+            var ubicaciones = _ubicacionRepository.HistorialPersona(personaId);
+            return ubicaciones;
+        }
+
+        public ICollection<UbicacionDTO>? UbicacionesActuales()
+        {
+            return _ubicacionRepository.UbicacionesActuales();
+        }
+
+
     }
 }

@@ -23,14 +23,27 @@ namespace PooII.Services
 
         public bool ActualizarPersona(PersonaDTO personaDTO)
         {
+            if (personaDTO == null)
+            {
+                logger.LogWarning("Intento de actualizar persona con objeto nulo.");
+                return false;
+            }
+
             var personaExistente = _personaRepository.ObtenerPorId(personaDTO.Id);
             if (personaExistente == null)
                 return false;
 
-            _mapper.Map(personaDTO, personaExistente); 
-
-            _personaRepository.GuardarCambios();
-            return true;
+            try
+            {
+                _mapper.Map(personaDTO, personaExistente);
+                _personaRepository.GuardarCambios();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, $"Error al actualizar persona con ID {personaDTO.Id}");
+                return false;
+            }
         }
 
         public bool CrearPersona(PersonaDTO personaDTO)
@@ -62,14 +75,29 @@ namespace PooII.Services
 
         public bool EliminarPersona(int id)
         {
-             _personaRepository.Eliminar(id);
-            _personaRepository.GuardarCambios();
-            return true;
+            var persona = _personaRepository.ObtenerPorId(id);
+            if (persona == null)
+                return false;
+
+            try
+            {
+                _personaRepository.Eliminar(id);
+                _personaRepository.GuardarCambios();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, $"Error al eliminar persona con ID {id}.");
+                return false;
+            }
         }
 
         public ICollection<PersonaDTO> ObtenerPersonas()
         {
-            return _mapper.Map<ICollection<PersonaDTO>>(_personaRepository.ObtenerTodas());
+            var personas = _personaRepository.ObtenerTodas();
+            return personas == null
+                ? new List<PersonaDTO>()
+                : _mapper.Map<ICollection<PersonaDTO>>(personas);
         }
 
         public IEnumerable<PersonaDTO> PersonaPorApellido(string pApellido)

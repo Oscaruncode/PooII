@@ -59,6 +59,20 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("PermitirLocalhost", builder =>
+    {
+        builder
+            .SetIsOriginAllowed(origin =>
+                origin.StartsWith("http://localhost") || origin.StartsWith("https://localhost"))
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials();
+    });
+});
+
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDbContext<Context>(context => context.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -110,6 +124,7 @@ if (app.Environment.IsDevelopment())
 
 
 app.UseHttpsRedirection();
+app.UseCors("PermitirLocalhost");
 
 
 app.UseAuthentication();

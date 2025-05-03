@@ -18,38 +18,67 @@ namespace PooII.Controllers
             _ubicacionServices = ubicacionServices;
         }
 
+        /// <summary>
+        /// Obtiene todas las ubicaciones actuales registradas.
+        /// </summary>
         [HttpGet("Actuales")]
         public async Task<IActionResult> GetUbicacionesActuales()
         {
             var actuales = _ubicacionServices.UbicacionesActuales();
 
-            return Ok(actuales);
+            if (actuales == null || !actuales.Any())
+            {
+                return NoContent(); // 204 si no hay datos
+            }
+
+            return Ok(actuales); // 200 con datos
         }
 
+        /// <summary>
+        /// Obtiene el historial de ubicaciones de una persona por su ID.
+        /// </summary>
         [HttpGet("historial/{personaID}")]
         public async Task<IActionResult> HistorialPersona(int personaID)
         {
+            if (personaID <= 0)
+            {
+                return BadRequest("El ID de la persona debe ser un valor positivo.");
+            }
+
             var historial = _ubicacionServices.HistorialPersona(personaID);
 
             if (historial == null || !historial.Any())
             {
-                return NotFound("No se encontró historial para esta persona.");
+                return NotFound("No se encontró historial para esta persona."); // 404
             }
 
-            return Ok(historial);
+            return Ok(historial); // 200
         }
 
         [HttpPost]
         public async Task<IActionResult> AddUbicacion([FromBody] UbicacionRequestDTO request)
         {
-            if (request == null || string.IsNullOrEmpty(request.Direccion))
+            if (request == null)
             {
-                return BadRequest("La direccion es requerida");
+                return BadRequest("La solicitud es inválida."); // 400
+            }
+
+            if (string.IsNullOrWhiteSpace(request.Direccion))
+            {
+                return BadRequest("La dirección es requerida."); // 400
+            }
+
+            if (request.PersonaId <= 0)
+            {
+                return BadRequest("El ID de la persona debe ser un valor positivo."); // 400
             }
 
             var (success, message, ubicacion) = await _ubicacionServices.AddUbicacionAsync(request.PersonaId, request.Direccion);
 
-            if (!success) return BadRequest(message);
+            if (!success)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, message); // 500 si algo salió mal internamente
+            }
 
             var response = new
             {

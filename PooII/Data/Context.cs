@@ -32,8 +32,24 @@ namespace PooII.Data
                     var fechaNacimiento = entry.Entity.FechaNacimiento;
                     if (fechaNacimiento.HasValue)
                     {
+                        //Calcular edad clinida y edad
                         entry.Entity.Edad = EdadHelper.CalcularEdad(fechaNacimiento.Value);
                         entry.Entity.EdadClinica = EdadHelper.CalcularEdadClinica(fechaNacimiento.Value);
+                    }
+                }
+            }
+
+            foreach (var entry in ChangeTracker.Entries<Usuario>())
+            {
+                if (entry.State == EntityState.Modified)
+                {
+                    var originalLogin = entry.OriginalValues.GetValue<string>(nameof(Usuario.Login));
+                    var currentLogin = entry.CurrentValues.GetValue<string>(nameof(Usuario.Login));
+
+                    if (originalLogin != currentLogin)
+                    {
+                        // Restaurar el valor original del Login para evitar cambiarlo
+                        entry.CurrentValues[nameof(Usuario.Login)] = originalLogin;
                     }
                 }
             }
